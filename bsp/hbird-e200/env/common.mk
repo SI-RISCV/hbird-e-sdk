@@ -79,7 +79,7 @@ CLEAN_OBJS += $(TARGET) $(LINK_OBJS) $(DUMP_OBJS) $(VERILOG_OBJS)
 CFLAGS += -g
 CFLAGS += -march=$(RISCV_ARCH)
 CFLAGS += -mabi=$(RISCV_ABI)
-CFLAGS +=   -ffunction-sections -fdata-sections 
+CFLAGS +=   -ffunction-sections -fdata-sections -fno-common
 ifeq ($(REPLACE_PRINTF),1) 
 CFLAGS +=   -fno-builtin-printf -fno-builtin-malloc 
 endif
