@@ -1,0 +1,8 @@
+*.o
+*.dump
+*.verilog
+*.a
+toolchain/
+work/
+shortcmd/
+*.log

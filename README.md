@@ -1,5 +1,6 @@
-# hbird-e-sdk
-The software development kit for Hummingbird E200 Series RISC-V Core and SoC platform
+# README #
 
+This repo is just the hacked version from the original freedom-e-sdk (from https://github.com/sifive/freedom-e-sdk)
 
-To be updated !!
+The purpose of this repo is to use a reduced version of freedom-e-sdk to make it used by HummingBird RISC-V processor core. 
+
