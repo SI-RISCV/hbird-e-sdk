@@ -73,9 +73,9 @@
 #define IOF_UART1_RX (24u)
 #define IOF_UART1_TX (25u)
 
-#define IOF0_I2C_MASK           _AC(0x0000C000, UL)
-#define IOF_I2C_SDA (14u)
-#define IOF_I2C_SCL (15u)
+#define IOF0_I2C_MASK           _AC(0x00003000, UL)
+#define IOF_I2C_SDA (12u)
+#define IOF_I2C_SCL (13u)
 
 #define IOF1_PWM0_MASK          _AC(0x0000000F, UL)
 #define IOF1_PWM1_MASK          _AC(0x00780000, UL)
