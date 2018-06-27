@@ -5,4 +5,6 @@ fpu_perf/fpu_perf
 pwm_3_test/pwm_3_test
 uart_read/uart_read
 coremark/coremark
+coremark4sim/coremark4sim
+dhrystone4sim/dhrystone4sim
 
