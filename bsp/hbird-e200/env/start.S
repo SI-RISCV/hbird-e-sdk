@@ -9,11 +9,14 @@
 	.type _start,@function
 
 _start:
+	csrrci x0, mstatus, 0x8  //Disable the interrupt globally
 .option push
 .option norelax
 	la gp, __global_pointer$
 .option pop
 	la sp, _sp
+
+    #csrrsi x0, 0xbfe, 0x8 // Disable I-Cache
 
 	/* Bob: Load code section from flash to ITCM */
 	la a0, _itcm_lma
