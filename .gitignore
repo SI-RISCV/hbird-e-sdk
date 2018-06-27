@@ -6,3 +6,4 @@ toolchain/
 work/
 shortcmd/
 *.log
+fpga_test4sim
