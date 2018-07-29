@@ -38,7 +38,7 @@ USE_NANO        := 1
 NANO_PFLOAT     := 1
 
 ifeq ($(core_name),${E201}) 
-RISCV_ARCH := rv32ic
+RISCV_ARCH := rv32iac
 RISCV_ABI  := ilp32
 endif
 
@@ -247,7 +247,7 @@ dasm: software
 #############################################################
 # This Section is for uploading a program to SPI Flash
 #############################################################
-OPENOCD_UPLOAD = bsp/hbird-e200/tools/openocd_upload.sh
+OPENOCD_UPLOAD = bsp/${BOARD}/tools/openocd_upload.sh
 ifeq ($(OCDCFG),${OLMX})
 OPENOCDCFG ?= bsp/$(BOARD)/env/openocd_olmx.cfg
 endif
