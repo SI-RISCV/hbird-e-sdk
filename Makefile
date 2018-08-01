@@ -31,6 +31,15 @@ E225        := e225
 E225FD      := e225fd
 
 CORE        := e203
+
+
+N201        := n201
+N203        := n203
+N205        := n205
+N205F       := n205f
+N205FD      := n205fd
+
+
 CORE_NAME = $(shell echo $(CORE) | tr a-z A-Z)
 core_name = $(shell echo $(CORE) | tr A-Z a-z)
 
@@ -67,6 +76,32 @@ ifeq ($(core_name),${E225FD})
 RISCV_ARCH := rv32imafdc
 RISCV_ABI  := ilp32f
 endif
+
+ifeq ($(core_name),${N201}) 
+RISCV_ARCH := rv32iac
+RISCV_ABI  := ilp32
+endif
+
+ifeq ($(core_name),${N203}) 
+RISCV_ARCH := rv32imac
+RISCV_ABI  := ilp32
+endif
+
+ifeq ($(core_name),${N205}) 
+RISCV_ARCH := rv32imac
+RISCV_ABI  := ilp32
+endif
+
+ifeq ($(core_name),${N205F}) 
+RISCV_ARCH := rv32imafc
+RISCV_ABI  := ilp32f
+endif
+
+ifeq ($(core_name),${N205FD}) 
+RISCV_ARCH := rv32imafdc
+RISCV_ABI  := ilp32f
+endif
+
 
 # Default target
 BOARD ?= hbird-e200
