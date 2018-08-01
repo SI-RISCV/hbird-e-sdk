@@ -3,7 +3,7 @@ TARGET := dhrystone
 C_SRCS := dhry_stubs.c dhry_1.c dhry_2.c 
 HEADERS := dhry.h
 
-CFLAGS := -O2  -fno-inline -fno-common  -falign-functions=4
+CFLAGS := -O2  -fno-inline -fno-common  
 
 
 BSP_BASE = ../../bsp
