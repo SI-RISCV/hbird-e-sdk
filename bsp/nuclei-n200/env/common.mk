@@ -8,7 +8,7 @@ all: $(TARGET)
 
 FLASHXIP    := flashxip
 FLASH       := flash
-ITCM        := itcm
+IECM        := iecm
 DOWNLOAD    := flash
 
 
@@ -38,8 +38,8 @@ ifeq ($(DOWNLOAD),${FLASH})
 LINKER_SCRIPT := $(ENV_DIR)/link_flash.lds
 endif
 
-ifeq ($(DOWNLOAD),${ITCM}) 
-LINKER_SCRIPT := $(ENV_DIR)/link_itcm.lds
+ifeq ($(DOWNLOAD),${IECM}) 
+LINKER_SCRIPT := $(ENV_DIR)/link_iecm.lds
 endif
 
 ifeq ($(DOWNLOAD),${FLASHXIP}) 

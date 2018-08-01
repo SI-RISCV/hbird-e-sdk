@@ -21,12 +21,12 @@ SECTIONS
   .ilalign         :
   {
     . = ALIGN(4);
-    PROVIDE( _itcm_lma = . );
+    PROVIDE( _iecm_lma = . );
   } >flash AT>flash 
 
   .ialign         :
   {
-    PROVIDE( _itcm = . );
+    PROVIDE( _iecm = . );
   } >flash AT>flash 
 
   .text           :
@@ -47,7 +47,7 @@ SECTIONS
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
-  PROVIDE( _eitcm = . );
+  PROVIDE( _eiecm = . );
 
 
   .preinit_array  :
@@ -105,7 +105,7 @@ SECTIONS
   } >flash AT>flash 
 
     . = ALIGN(4);
-    PROVIDE( _eitcm = . );
+    PROVIDE( _eiecm = . );
 
   .lalign         :
   {

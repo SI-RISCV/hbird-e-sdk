@@ -14,6 +14,7 @@ endif
 FLASHXIP    := flashxip
 FLASH       := flash
 ITCM        := itcm
+IECM        := iecm
 DOWNLOAD    := flash
 
 OCDCFG := ftdi

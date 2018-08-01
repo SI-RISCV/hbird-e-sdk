@@ -18,11 +18,11 @@ _start:
 
     #csrrsi x0, 0xbfe, 0x8 // Disable I-Cache
 
-	/* Bob: Load code section from flash to ITCM */
-	la a0, _itcm_lma
-	la a1, _itcm
-    beq a0, a1, 2f  /*If the ITCM phy-address same as the logic-address, then quit*/
-	la a2, _eitcm
+	/* Bob: Load code section from flash to IECM */
+	la a0, _iecm_lma
+	la a1, _iecm
+    beq a0, a1, 2f  /*If the IECM phy-address same as the logic-address, then quit*/
+	la a2, _eiecm
 	bgeu a1, a2, 2f
 1:
 	lw t0, (a0)

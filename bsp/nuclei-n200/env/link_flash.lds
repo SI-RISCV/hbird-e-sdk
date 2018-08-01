@@ -5,7 +5,7 @@ ENTRY( _start )
 MEMORY
 {
   flash (rxai!w) : ORIGIN = 0x20000000, LENGTH = 4M
-  itcm (rxai!w) : ORIGIN = 0x80000000, LENGTH = 64K
+  iecm (rxai!w) : ORIGIN = 0x80000000, LENGTH = 64K
   ram (wxa!ri) : ORIGIN = 0x90000000, LENGTH = 64K
 }
 
@@ -22,13 +22,13 @@ SECTIONS
   .ilalign         :
   {
     . = ALIGN(4);
-    PROVIDE( _itcm_lma = . );
+    PROVIDE( _iecm_lma = . );
   } >flash AT>flash 
 
   .ialign         :
   {
-    PROVIDE( _itcm = . );
-  } >itcm AT>flash 
+    PROVIDE( _iecm = . );
+  } >iecm AT>flash 
 
   .text           :
   {
@@ -36,19 +36,19 @@ SECTIONS
     *(.text.startup .text.startup.*)
     *(.text .text.*)
     *(.gnu.linkonce.t.*)
-  } >itcm AT>flash 
+  } >iecm AT>flash 
 
   .fini           :
   {
     KEEP (*(SORT_NONE(.fini)))
-  } >itcm AT>flash 
+  } >iecm AT>flash 
 
   . = ALIGN(4);
 
   PROVIDE (__etext = .);
   PROVIDE (_etext = .);
   PROVIDE (etext = .);
-  PROVIDE( _eitcm = . );
+  PROVIDE( _eiecm = . );
 
 
   .preinit_array  :
@@ -106,7 +106,7 @@ SECTIONS
   } >flash AT>flash 
 
     . = ALIGN(4);
-    PROVIDE( _eitcm = . );
+    PROVIDE( _eiecm = . );
 
   .lalign         :
   {
