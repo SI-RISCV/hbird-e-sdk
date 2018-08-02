@@ -5,6 +5,7 @@ rm eclipse_demo -rf
 mkdir eclipse_demo
 mkdir eclipse_demo/software
 cp bsp eclipse_demo -rf
+rm eclipse_demo/bsp/nuclei-n200 -rf
 cp software/dhrystone eclipse_demo/software -rf
 cp software/demo_gpio eclipse_demo/software -rf
 cp software/hello_world eclipse_demo/software -rf
