@@ -240,7 +240,8 @@ int main(int argc, char **argv)
   // For Bit-banging with Atomics demo.
   
   while (1){
-    atomic_fetch_xor_explicit(&GPIO_REG(GPIO_OUTPUT_VAL), bitbang_mask, memory_order_relaxed);
+    GPIO_REG(GPIO_OUTPUT_VAL) ^= bitbang_mask;
+    //atomic_fetch_xor_explicit(&GPIO_REG(GPIO_OUTPUT_VAL), bitbang_mask, memory_order_relaxed);
   }
 
   return 0;
