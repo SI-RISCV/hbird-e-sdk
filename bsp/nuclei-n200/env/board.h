@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_E200_H
-#define _HBIRD_E200_H
+#ifndef _NUCLEI_N200_H
+#define _NUCLEI_N200_H
 
 #include <stdint.h>
 
@@ -19,18 +19,10 @@
 
 
 
-#define BUTTON_0_GPIO_OFFSET 15
-#define BUTTON_1_GPIO_OFFSET 30
-#define BUTTON_2_GPIO_OFFSET 31
-
-#define PLIC_INT_DEVICE_BUTTON_0 (PLIC_INT_GPIO_BASE + BUTTON_0_GPIO_OFFSET)
-#define PLIC_INT_DEVICE_BUTTON_1 (PLIC_INT_GPIO_BASE + BUTTON_1_GPIO_OFFSET)
-#define PLIC_INT_DEVICE_BUTTON_2 (PLIC_INT_GPIO_BASE + BUTTON_2_GPIO_OFFSET)
-
 
 
 #define RTC_FREQ 32768
 
 void write_hex(int fd, unsigned long int hex);
 
-#endif /* _HBIRD_E200_H */
+#endif /* _NUCLEI_N200_H */

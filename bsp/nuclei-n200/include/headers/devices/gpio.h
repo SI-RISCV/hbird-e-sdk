@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_GPIO_H
-#define _HBIRD_GPIO_H
+#ifndef _NUCLEI_GPIO_H
+#define _NUCLEI_GPIO_H
 
 #define GPIO_INPUT_VAL  (0x00)
 #define GPIO_INPUT_EN   (0x04)
@@ -21,4 +21,4 @@
 #define GPIO_IOF_SEL    (0x3C)
 #define GPIO_OUTPUT_XOR    (0x40)
 
-#endif /* _HBIRD_GPIO_H */
+#endif /* _NUCLEI_GPIO_H */

@@ -1,8 +1,8 @@
 // See LICENSE for license details.
 /* Derived from <linux/const.h> */
 
-#ifndef _HBIRD_CONST_H
-#define _HBIRD_CONST_H
+#ifndef _NUCLEI_CONST_H
+#define _NUCLEI_CONST_H
 
 #ifdef __ASSEMBLER__
 #define _AC(X,Y)        X
@@ -15,4 +15,4 @@
 #define _BITUL(x)       (_AC(1,UL) << (x))
 #define _BITULL(x)      (_AC(1,ULL) << (x))
 
-#endif /* _HBIRD_CONST_H */
+#endif /* _NUCLEI_CONST_H */

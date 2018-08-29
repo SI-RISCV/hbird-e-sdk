@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_AON_H
-#define _HBIRD_AON_H
+#ifndef _NUCLEI_AON_H
+#define _NUCLEI_AON_H
 
 /* Register offsets */
 
@@ -85,4 +85,4 @@
 #define AON_PMUCAUSE_WAKEUPCAUSE 0x00FF
 #define AON_PMUCAUSE_RESETCAUSE  0xFF00
 
-#endif /* _HBIRD_AON_H */
+#endif /* _NUCLEI_AON_H */

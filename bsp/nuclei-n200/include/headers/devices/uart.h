@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_UART_H
-#define _HBIRD_UART_H
+#ifndef _NUCLEI_UART_H
+#define _NUCLEI_UART_H
 
 /* Register offsets */
 #define UART_REG_TXFIFO         0x00
@@ -24,4 +24,4 @@
 #define UART_IP_TXWM            0x1
 #define UART_IP_RXWM            0x2
 
-#endif /* _HBIRD_UART_H */
+#endif /* _NUCLEI_UART_H */

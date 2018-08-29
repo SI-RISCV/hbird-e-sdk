@@ -1,7 +1,7 @@
 # See LICENSE for license details.
 
-ifndef _HBIRD_MK_COMMON
-_HBIRD_MK_COMMON := # defined
+ifndef _NUCLEI_MK_COMMON
+_NUCLEI_MK_COMMON := # defined
 
 .PHONY: all
 all: $(TARGET)
@@ -20,6 +20,7 @@ STUB_DIR = $(BSP_BASE)/$(BOARD)/stubs
 ASM_SRCS += $(ENV_DIR)/start.S
 ASM_SRCS += $(ENV_DIR)/entry.S
 C_SRCS += $(ENV_DIR)/init.c
+C_SRCS += $(DRIVER_DIR)/pic/pic_driver.c
 C_SRCS += $(STUB_DIR)/close.c
 C_SRCS += $(STUB_DIR)/_exit.c
 C_SRCS += $(STUB_DIR)/write_hex.c
@@ -99,4 +100,4 @@ $(C_OBJS): %.o: %.c $(HEADERS)
 clean:
 	rm -f $(CLEAN_OBJS)
 
-endif # _HBIRD_MK_COMMON
+endif # _NUCLEI_MK_COMMON

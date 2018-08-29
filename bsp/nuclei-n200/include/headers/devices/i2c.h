@@ -1,8 +1,8 @@
 //by Twhite
 //See LICENSE for license details
 
-#ifndef _HBIRD_SPI_H
-#define _HBIRD_SPI_H
+#ifndef _NUCLEI_SPI_H
+#define _NUCLEI_SPI_H
 
 /*register offsets*/
 //all registers are 8 bits width
@@ -49,4 +49,4 @@
 
 #endif
 
-#endif /* _HBIRD_SPI_H */
+#endif /* _NUCLEI_SPI_H */

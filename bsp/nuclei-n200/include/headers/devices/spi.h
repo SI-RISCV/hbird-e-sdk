@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_SPI_H
-#define _HBIRD_SPI_H
+#ifndef _NUCLEI_SPI_H
+#define _NUCLEI_SPI_H
 
 /* Register offsets */
 
@@ -77,4 +77,4 @@
 #define SPI_ENDIAN_LSB          1
 
 
-#endif /* _HBIRD_SPI_H */
+#endif /* _NUCLEI_SPI_H */

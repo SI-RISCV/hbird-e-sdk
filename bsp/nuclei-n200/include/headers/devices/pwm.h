@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_PWM_H
-#define _HBIRD_PWM_H
+#ifndef _NUCLEI_PWM_H
+#define _NUCLEI_PWM_H
 
 /* Register offsets */
 
@@ -34,4 +34,4 @@
 #define PWM_CFG_CMP2IP      0x40000000
 #define PWM_CFG_CMP3IP      0x80000000
 
-#endif /* _HBIRD_PWM_H */
+#endif /* _NUCLEI_PWM_H */

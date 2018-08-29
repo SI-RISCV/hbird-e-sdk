@@ -1,7 +1,7 @@
 // See LICENSE for license details.
 
-#ifndef _HBIRD_PLATFORM_H
-#define _HBIRD_PLATFORM_H
+#ifndef _NUCLEI_PLATFORM_H
+#define _NUCLEI_PLATFORM_H
 
 // Some things missing from the official encoding.h
 #define MCAUSE_INT         0x80000000
@@ -9,9 +9,9 @@
 
 #include "headers/const.h"
 #include "headers/devices/aon.h"
-#include "headers/devices/clint.h"
+#include "headers/devices/tmr.h"
 #include "headers/devices/gpio.h"
-#include "headers/devices/plic.h"
+#include "headers/devices/pic.h"
 #include "headers/devices/pwm.h"
 #include "headers/devices/spi.h"
 #include "headers/devices/uart.h"
@@ -23,8 +23,8 @@
  *****************************************************************************/
 
 #define TRAPVEC_TABLE_CTRL_ADDR _AC(0x00001010,UL)
-#define CLINT_CTRL_ADDR         _AC(0x02000000,UL)
-#define PLIC_CTRL_ADDR          _AC(0x0C000000,UL)
+#define TMR_CTRL_ADDR           _AC(0x02000000,UL)
+#define PIC_CTRL_ADDR           _AC(0x0C000000,UL)
 #define AON_CTRL_ADDR           _AC(0x10000000,UL)
 #define GPIO_CTRL_ADDR          _AC(0x10012000,UL)
 #define UART0_CTRL_ADDR         _AC(0x10013000,UL)
@@ -82,29 +82,31 @@
 #define IOF1_PWM2_MASK          _AC(0x00003C00, UL)
 
 // Interrupt Numbers
-#define PLIC_INT_RESERVED    0
-#define PLIC_INT_WDOGCMP     1
-#define PLIC_INT_RTCCMP      2
-#define PLIC_INT_UART0_BASE  3
-#define PLIC_INT_UART1_BASE  4
-#define PLIC_INT_SPI0_BASE   5
-#define PLIC_INT_SPI1_BASE   6
-#define PLIC_INT_SPI2_BASE   7
-#define PLIC_INT_GPIO_BASE   8
-#define PLIC_INT_PWM0_BASE   40
-#define PLIC_INT_PWM1_BASE   44
-#define PLIC_INT_PWM2_BASE   48
-#define PLIC_INT_I2C_BASE    52
+#define PIC_INT_RESERVED    0
+#define PIC_INT_SFT         1
+#define PIC_INT_TMR         2
+#define PIC_INT_WDOGCMP     3
+#define PIC_INT_RTCCMP      4
+#define PIC_INT_UART0_BASE  5
+#define PIC_INT_UART1_BASE  6
+#define PIC_INT_SPI0_BASE   7
+#define PIC_INT_SPI1_BASE   8
+#define PIC_INT_SPI2_BASE   9
+#define PIC_INT_GPIO_BASE   12
+#define PIC_INT_PWM0_BASE   42
+#define PIC_INT_PWM1_BASE   46
+#define PIC_INT_PWM2_BASE   50
+#define PIC_INT_I2C_BASE    54
 
 // Helper functions
 #define _REG8(p, i)             (*(volatile uint8_t *) ((p) + (i)))
 #define _REG32(p, i)            (*(volatile uint32_t *) ((p) + (i)))
 #define _REG32P(p, i)           ((volatile uint32_t *) ((p) + (i)))
 #define AON_REG(offset)         _REG32(AON_CTRL_ADDR, offset)
-#define CLINT_REG(offset)       _REG32(CLINT_CTRL_ADDR, offset)
+#define TMR_REG(offset)         _REG32(TMR_CTRL_ADDR, offset)
 #define GPIO_REG(offset)        _REG32(GPIO_CTRL_ADDR, offset)
 #define OTP_REG(offset)         _REG32(OTP_CTRL_ADDR, offset)
-#define PLIC_REG(offset)        _REG32(PLIC_CTRL_ADDR, offset)
+#define PIC_REG(offset)         _REG32(PIC_CTRL_ADDR, offset)
 #define PRCI_REG(offset)        _REG32(PRCI_CTRL_ADDR, offset)
 #define PWM0_REG(offset)        _REG32(PWM0_CTRL_ADDR, offset)
 #define PWM1_REG(offset)        _REG32(PWM1_CTRL_ADDR, offset)
@@ -123,10 +125,9 @@
 
 #define NUM_GPIO 32
 
-#define PLIC_NUM_INTERRUPTS 52
-#define PLIC_NUM_PRIORITIES 7
+#define PIC_NUM_INTERRUPTS 54
+#define PIC_NUM_PRIORITIES 7
 
-#define HAS_BOARD_BUTTONS
 #include "board.h"
 
 unsigned long get_timer_freq(void);
@@ -134,4 +135,4 @@ uint64_t get_timer_value(void);
 uint64_t get_instret_value(void);
 uint64_t get_cycle_value(void);
 
-#endif /* _HBIRD_PLATFORM_H */
+#endif /* _NUCLEI_PLATFORM_H */

@@ -6,9 +6,12 @@
 #include "encoding.h"
 #include "headers/bits.h"
 
-#only save caller registers
-.macro TRAP_ENTRY
-  addi sp, sp, -16*REGBYTES
+
+
+###############################################
+###############################################
+#Save caller registers
+.macro SAVE_CONTEXT
 
   STORE x1,  0*REGBYTES(sp)
   STORE x5,  1*REGBYTES(sp)
@@ -28,12 +31,19 @@
   STORE x31, 15*REGBYTES(sp)
 .endm
 
-#restore caller registers
-.macro TRAP_EXIT
-## Remain in M-mode after mret
-#  li t0, MSTATUS_MPP
-#  csrs mstatus, t0
+###############################################
+###############################################
+# Save the mipc and istatus
+#
+.macro SAVE_MIPC_ISTATUS
+  csrr x5, CSR_MIPC  
+  STORE x5,  16*REGBYTES(sp)
+  csrr x5, CSR_ISTATUS  
+  STORE x5,  17*REGBYTES(sp)
+.endm
 
+#restore caller registers
+.macro RESTORE_CONTEXT
   LOAD x1,  0*REGBYTES(sp)
   LOAD x5,  1*REGBYTES(sp)
   LOAD x6,  2*REGBYTES(sp)
@@ -51,25 +61,114 @@
   LOAD x30, 14*REGBYTES(sp)
   LOAD x31, 15*REGBYTES(sp)
 
-  addi sp, sp, 16*REGBYTES
-  mret
 .endm
 
-  .section      .text.entry	
+
+###############################################
+###############################################
+# Restore the mipc and istatus
+#
+.macro RESTORE_MIPC_ISTATUS
+  LOAD x5,  16*REGBYTES(sp)
+  csrw CSR_MIPC, x5  
+  LOAD x5,  17*REGBYTES(sp)
+  csrw CSR_ISTATUS, x5  
+.endm
+
+.macro DISABLE_MIE
+  csrc CSR_MSTATUS, MSTATUS_MIE  
+.endm
+
+
+###############################################
+###############################################
+// Trap entry point
+//
+  .section      .text.trap	
   .align 2
   .global trap_entry
 trap_entry:
-  TRAP_ENTRY
-
+  // Allocate the stack space
+  addi sp, sp, -16*REGBYTES
+  // Save the caller saving registers (context)
+  SAVE_CONTEXT
+     // Set the function argument
   csrr a0, mcause
-  csrr a1, mepc
+     // Call the function
   call handle_trap
-  csrw mepc, a0
+  // Restore the caller saving registers (context)
+  RESTORE_CONTEXT
+  // De-allocate the stack space
+  addi sp, sp, 16*REGBYTES
+  // Return to regular code
+  mret
 
-  TRAP_EXIT
+###############################################
+###############################################
+// IRQ entry point
+//
+  .section      .text.irq	
+  .align 2
+  .global irq_entry
+irq_entry:
+  // Allocate the stack space
+  addi sp, sp, -18*REGBYTES
+  // Save the caller saving registers (context)
+  SAVE_CONTEXT
+  SAVE_MIPC_ISTATUS
+     // Call the function
+  call handle_irq
+  // Restore the caller saving registers (context)
+  RESTORE_MIPC_ISTATUS
+  RESTORE_CONTEXT
+  // Re-disable the interrupt
+  DISABLE_MIE
+  // De-allocate the stack space
+  addi sp, sp, 18*REGBYTES
+  // Return to regular code
+  mret
 
+###############################################
+###############################################
+// NMI entry point
+//
+  .section      .text.nmi	
+  .align 2
+  .global nmi_entry
+nmi_entry:
+  // Allocate the stack space
+  addi sp, sp, -16*REGBYTES
+  // Save the caller saving registers (context)
+  SAVE_CONTEXT
+     // Call the function
+  call handle_nmi
+  // Restore the caller saving registers (context)
+  RESTORE_CONTEXT
+  // De-allocate the stack space
+  addi sp, sp, 16*REGBYTES
+  // Return to regular code
+  mret
+
+
+
+###############################################
+###############################################
 .weak handle_trap
 handle_trap:
+1:
+  j 1b
+
+###############################################
+###############################################
+.weak handle_irq
+handle_irq:
+1:
+  j 1b
+
+###############################################
+###############################################
+.weak handle_nmi
+handle_nmi:
 1:
   j 1b
 	
