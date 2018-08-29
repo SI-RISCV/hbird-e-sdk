@@ -27,8 +27,6 @@ void no_interrupt_handler (void) {};
 /*Entry Point for Machine Timer Interrupt Handler*/
 void handle_m_time_interrupt(){
 
-  clear_csr(mie, MIE_MTIE);
-
   // Reset the timer for 3s in the future.
   // This also clears the existing timer interrupt.
 
@@ -41,8 +39,6 @@ void handle_m_time_interrupt(){
 
   GPIO_REG(GPIO_OUTPUT_VAL) ^= (0x1 << RED_LED_GPIO_OFFSET);
   
-  // Re-enable the timer interrupt.
-  set_csr(mie, MIE_MTIE);
 
 }
 
@@ -120,14 +116,14 @@ void register_pic_irqs (){
 
   // Have to enable the interrupt both at the GPIO level,
   // and at the PIC level.
-  PIC_enable_interrupt (&g_pic, PIC_INT_TMR);
-  PIC_enable_interrupt (&g_pic, PIC_INT_DEVICE_BUTTON_1);
-  PIC_enable_interrupt (&g_pic, PIC_INT_DEVICE_BUTTON_2);
+  PIC_enable_interrupt (PIC_INT_TMR);
+  PIC_enable_interrupt (PIC_INT_DEVICE_BUTTON_1);
+  PIC_enable_interrupt (PIC_INT_DEVICE_BUTTON_2);
 
   // Priority must be set > 0 to trigger the interrupt.
-  PIC_set_priority(&g_pic, PIC_INT_TMR, 1);
-  PIC_set_priority(&g_pic, PIC_INT_DEVICE_BUTTON_1, 1);
-  PIC_set_priority(&g_pic, PIC_INT_DEVICE_BUTTON_2, 1);
+  PIC_set_priority(PIC_INT_TMR, 1);
+  PIC_set_priority(PIC_INT_DEVICE_BUTTON_1, 1);
+  PIC_set_priority(PIC_INT_DEVICE_BUTTON_2, 1);
 
  } 
 
