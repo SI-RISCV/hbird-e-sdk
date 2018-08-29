@@ -98,14 +98,12 @@ static unsigned long __attribute__((noinline)) measure_cpu_freq(size_t n)
 
 unsigned long get_cpu_freq()
 {
-  static uint32_t cpu_freq;
+  uint32_t cpu_freq;
 
-  if (!cpu_freq) {
-    // warm up
-    measure_cpu_freq(1);
-    // measure for real
-    cpu_freq = measure_cpu_freq(100);
-  }
+  // warm up
+  measure_cpu_freq(1);
+  // measure for real
+  cpu_freq = measure_cpu_freq(100);
 
   return cpu_freq;
 }
