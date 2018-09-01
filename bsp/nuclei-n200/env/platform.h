@@ -85,6 +85,7 @@
 #define PIC_INT_RESERVED    0
 #define PIC_INT_SFT         1
 #define PIC_INT_TMR         2
+
 #define PIC_INT_WDOGCMP     3
 #define PIC_INT_RTCCMP      4
 #define PIC_INT_UART0_BASE  5
@@ -92,7 +93,8 @@
 #define PIC_INT_SPI0_BASE   7
 #define PIC_INT_SPI1_BASE   8
 #define PIC_INT_SPI2_BASE   9
-#define PIC_INT_GPIO_BASE   12
+#define PIC_INT_GPIO_BASE   10
+
 #define PIC_INT_PWM0_BASE   42
 #define PIC_INT_PWM1_BASE   46
 #define PIC_INT_PWM2_BASE   50
