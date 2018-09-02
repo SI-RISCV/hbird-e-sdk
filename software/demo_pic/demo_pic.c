@@ -101,7 +101,7 @@ This is printf function printed:  \n\
 
 void button_1_handler(void) {
 
-  printf ("%s","Begin button1 handler\n");
+  printf ("%s","----Begin button1 handler\n");
 
   // Green LED On
   GPIO_REG(GPIO_OUTPUT_VAL) |= (1 << GREEN_LED_GPIO_OFFSET);
@@ -111,13 +111,13 @@ void button_1_handler(void) {
 
   wait_seconds(5);// Wait for a while
 
-  printf ("%s","End button1 handler\n");
+  printf ("%s","----End button1 handler\n");
 };
 
 
 void button_2_handler(void) {
 
-  printf ("%s","Begin button2 handler\n");
+  printf ("%s","--------Begin button2 handler\n");
 
   // Blue LED On
   GPIO_REG(GPIO_OUTPUT_VAL) |= (1 << BLUE_LED_GPIO_OFFSET);
@@ -126,7 +126,7 @@ void button_2_handler(void) {
 
   wait_seconds(5);// Wait for a while
 
-  printf ("%s","End button2 handler\n");
+  printf ("%s","--------End button2 handler\n");
 
 };
 
