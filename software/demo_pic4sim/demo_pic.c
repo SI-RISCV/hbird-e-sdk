@@ -27,9 +27,8 @@ void no_interrupt_handler (void) {};
 /*Entry Point for Machine Timer Interrupt Handler*/
 void handle_m_time_interrupt(){
 
-  printf ("%s","\nI am in the timer handler now!\n");
-  // Reset the timer for 3s in the future.
-  // This also clears the existing timer interrupt.
+  printf ("%s","Begin mtime handler\n");
+  GPIO_REG(GPIO_OUTPUT_VAL) ^= (0x1 << RED_LED_GPIO_OFFSET);
 
   volatile uint64_t * mtime       = (uint64_t*) (TMR_CTRL_ADDR + TMR_MTIME);
   volatile uint64_t * mtimecmp    = (uint64_t*) (TMR_CTRL_ADDR + TMR_MTIMECMP);
@@ -39,8 +38,8 @@ void handle_m_time_interrupt(){
   *mtimecmp = then;
 
 
-  GPIO_REG(GPIO_OUTPUT_VAL) ^= (0x1 << RED_LED_GPIO_OFFSET);
   
+  printf ("%s","End mtime handler\n");
 
 }
 
@@ -87,21 +86,28 @@ This is printf function printed:  \n\
 
 void button_1_handler(void) {
 
+  printf ("%s","----Begin button1 handler\n");
+
   // Green LED On
   GPIO_REG(GPIO_OUTPUT_VAL) |= (1 << GREEN_LED_GPIO_OFFSET);
 
   // Clear the GPIO Pending interrupt by writing 1.
   GPIO_REG(GPIO_RISE_IP) = (0x1 << BUTTON_1_GPIO_OFFSET);
 
+  printf ("%s","----End button1 handler\n");
 };
 
 
 void button_2_handler(void) {
 
+  printf ("%s","-------------Begin button2 handler\n");
+
   // Blue LED On
   GPIO_REG(GPIO_OUTPUT_VAL) |= (1 << BLUE_LED_GPIO_OFFSET);
 
   GPIO_REG(GPIO_RISE_IP) = (0x1 << BUTTON_2_GPIO_OFFSET);
+
+  printf ("%s","-------------End button2 handler\n");
 
 };
 
@@ -124,8 +130,8 @@ void register_pic_irqs (){
 
   // Priority must be set > 0 to trigger the interrupt.
   PIC_set_priority(PIC_INT_TMR, 1);
-  PIC_set_priority(PIC_INT_DEVICE_BUTTON_1, 1);
-  PIC_set_priority(PIC_INT_DEVICE_BUTTON_2, 1);
+  PIC_set_priority(PIC_INT_DEVICE_BUTTON_1, 2);
+  PIC_set_priority(PIC_INT_DEVICE_BUTTON_2, 3);
 
  } 
 

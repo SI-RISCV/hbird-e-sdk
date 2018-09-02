@@ -52,8 +52,6 @@ void handle_m_time_interrupt(){
   uint64_t then = now + 0.5 * RTC_FREQ;// Here we set 1 second, but we need to wait 5 cycles to get out from this handler, so the blink will not toggle as 1 cycle
   *mtimecmp = then;
 
-  //TODO: to check why it is not toggle every 5 cycles, and check why the button is not working
-
   wait_seconds(5);// Wait for a while
   
   printf ("%s","End mtime handler\n");
