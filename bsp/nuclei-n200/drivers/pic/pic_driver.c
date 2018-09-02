@@ -24,22 +24,24 @@ void PIC_set_threshold (
 
 void PIC_enable_interrupt (pic_source source){
 
-  volatile uint8_t * current_ptr = (volatile uint8_t *)(PIC_CTRL_ADDR +
+  volatile pic_source * current_ptr = (volatile pic_source *)(PIC_CTRL_ADDR +
                                                         PIC_ENABLE_OFFSET +
-                                                        (source >> 3));
-  uint8_t current = *current_ptr;
-  current = current | ( 1 << (source & 0x7));
+                                                        ((source >> 3) & (~0x3))//Source number divide 32 and then multip 4 (bytes)
+                                                        );
+  pic_source current = *current_ptr;
+  current = current | ( 1 << (source & 0x1f));// Only check the least 5 bits
   *current_ptr = current;
 
 }
 
 void PIC_disable_interrupt (pic_source source){
   
-  volatile uint8_t * current_ptr = (volatile uint8_t *) (PIC_CTRL_ADDR +
+  volatile pic_source * current_ptr = (volatile pic_source *) (PIC_CTRL_ADDR +
                                                          PIC_ENABLE_OFFSET +
-                                                         (source >> 3));
-  uint8_t current = *current_ptr;
-  current = current & ~(( 1 << (source & 0x7)));
+                                                         ((source >> 3) & (~0x3))//Source number divide 32 and then multip 4 (bytes)
+                                                          );
+  pic_source current = *current_ptr;
+  current = current & ~(( 1 << (source & 0x1f)));// Only check the least 5 bits
   *current_ptr = current;
   
 }
@@ -50,7 +52,7 @@ void PIC_set_priority (pic_source source, pic_priority priority){
     volatile pic_priority * priority_ptr = (volatile pic_priority *)
       (PIC_CTRL_ADDR +
        PIC_PRIORITY_OFFSET +
-       (source << PIC_PRIORITY_SHIFT_PER_SOURCE));
+       (source << PIC_PRIORITY_SHIFT_PER_SOURCE));// Each priority reg occupy a word, so multiple 2
     *priority_ptr = priority;
   }
 }
