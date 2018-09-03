@@ -27,7 +27,9 @@ void no_interrupt_handler (void) {};
 /*Entry Point for Machine Timer Interrupt Handler*/
 void handle_m_time_interrupt(){
 
-  printf ("%s","Begin mtime handler\n");
+    // Use write functions instead of printf
+  write (STDOUT_FILENO, "Begin mtime handler\n", strlen("Begin mtime handler\n"));
+  //printf ("%s","Begin mtime handler\n");
   GPIO_REG(GPIO_OUTPUT_VAL) ^= (0x1 << RED_LED_GPIO_OFFSET);
 
   volatile uint64_t * mtime       = (uint64_t*) (TMR_CTRL_ADDR + TMR_MTIME);
@@ -39,7 +41,8 @@ void handle_m_time_interrupt(){
 
 
   
-  printf ("%s","End mtime handler\n");
+  write (STDOUT_FILENO, "End mtime handler\n", strlen("End mtime handler\n"));
+  //printf ("%s","End mtime handler\n");
 
 }
 
@@ -86,7 +89,8 @@ This is printf function printed:  \n\
 
 void button_1_handler(void) {
 
-  printf ("%s","----Begin button1 handler\n");
+  //printf ("%s","----Begin button1 handler\n");
+  write (STDOUT_FILENO, "----Begin button1 handler\n", strlen("----Begin button1 handler\n"));
 
   // Green LED On
   GPIO_REG(GPIO_OUTPUT_VAL) |= (1 << GREEN_LED_GPIO_OFFSET);
@@ -94,20 +98,23 @@ void button_1_handler(void) {
   // Clear the GPIO Pending interrupt by writing 1.
   GPIO_REG(GPIO_RISE_IP) = (0x1 << BUTTON_1_GPIO_OFFSET);
 
-  printf ("%s","----End button1 handler\n");
+  //printf ("%s","----End button1 handler\n");
+  write (STDOUT_FILENO, "----End button1 handler\n", strlen("----End button1 handler\n"));
 };
 
 
 void button_2_handler(void) {
 
-  printf ("%s","-------------Begin button2 handler\n");
+  //printf ("%s","-------------Begin button2 handler\n");
+  write (STDOUT_FILENO, "----------Begin button2 handler\n", strlen("----------Begin button2 handler\n"));
 
   // Blue LED On
   GPIO_REG(GPIO_OUTPUT_VAL) |= (1 << BLUE_LED_GPIO_OFFSET);
 
   GPIO_REG(GPIO_RISE_IP) = (0x1 << BUTTON_2_GPIO_OFFSET);
 
-  printf ("%s","-------------End button2 handler\n");
+  //printf ("%s","-------------End button2 handler\n");
+  write (STDOUT_FILENO, "----------End button2 handler\n", strlen("----------End button2 handler\n"));
 
 };
 
