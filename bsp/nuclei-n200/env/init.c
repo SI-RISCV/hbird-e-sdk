@@ -137,9 +137,11 @@ uintptr_t handle_trap(uintptr_t mcause)
 /*Entry Point for PIC Interrupt Handler*/
 void handle_irq(){
   pic_source int_num  = PIC_claim_interrupt();
-  // Enable interrupts to allow interrupt preempt based on priority
-  set_csr(mstatus, MSTATUS_MIE);
+    // Enable interrupts to allow interrupt preempt based on priority
+    set_csr(mstatus, MSTATUS_MIE);
   pic_interrupt_handlers[int_num]();
+    // Disable interrupts 
+    clear_csr(mstatus, MSTATUS_MIE);
   PIC_complete_interrupt(int_num);
 }
 

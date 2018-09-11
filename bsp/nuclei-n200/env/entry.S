@@ -121,8 +121,6 @@ irq_entry:
   // Restore the caller saving registers (context)
   RESTORE_MIPC_ISTATUS
   RESTORE_CONTEXT
-  // Re-disable the interrupt
-  DISABLE_MIE
   // De-allocate the stack space
   addi sp, sp, 18*REGBYTES
   // Return to regular code
