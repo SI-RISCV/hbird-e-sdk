@@ -5,6 +5,7 @@
 
 #include "encoding.h"
 #include "headers/bits.h"
+#include "headers/devices/pic.h"
 
 
 
@@ -79,6 +80,9 @@
   csrc CSR_MSTATUS, MSTATUS_MIE  
 .endm
 
+.macro ENBLE_MIE
+  csrs CSR_MSTATUS, MSTATUS_MIE  
+.endm
 
 ###############################################
 ###############################################
@@ -113,14 +117,24 @@ trap_entry:
 irq_entry:
   // Allocate the stack space
   addi sp, sp, -18*REGBYTES
+
   // Save the caller saving registers (context)
   SAVE_CONTEXT
   SAVE_MIPC_ISTATUS
-     // Call the function
+
+  // Call the handler function
+call_irq:
   call handle_irq
+
+  // Check if there is pending irq to support interrupt tailing
+  li x5, (PIC_CTRL_ADDR + PIC_EIP_OFFSET)// Use t0(x5) as the address register
+  lw x5, 0(x5)// Read the value from PIC EIP reg
+  bnez x5, call_irq // If the EIP reg is not zero, means there is a pending register
+
   // Restore the caller saving registers (context)
   RESTORE_MIPC_ISTATUS
   RESTORE_CONTEXT
+
   // De-allocate the stack space
   addi sp, sp, 18*REGBYTES
   // Return to regular code

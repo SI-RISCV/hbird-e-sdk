@@ -36,6 +36,7 @@ pic_source PIC_claim_interrupt();
 void PIC_complete_interrupt(
 			     pic_source source);
 
+pic_source PIC_check_eip();
 
 // Structures for registering different interrupt handlers
 // for different parts of the application.

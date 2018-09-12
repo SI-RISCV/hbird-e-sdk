@@ -69,6 +69,18 @@ pic_source PIC_claim_interrupt(){
   
 }
 
+pic_source PIC_check_eip(){
+  
+
+  volatile pic_source * eip_addr = (volatile pic_source * )
+    (PIC_CTRL_ADDR +
+     PIC_EIP_OFFSET 
+     );
+
+  return  *eip_addr;
+  
+}
+
 void PIC_complete_interrupt(pic_source source){
   
   volatile pic_source * claim_addr = (volatile pic_source *) (PIC_CTRL_ADDR +

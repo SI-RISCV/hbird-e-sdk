@@ -11,4 +11,7 @@
 #define TMR_MTIME 0x0010
 #define TMR_MTIME_size 0x8
 
+#define TMR_CTRL_ADDR           0x02000000
+#define TMR_REG(offset)         _REG32(TMR_CTRL_ADDR, offset)
+
 #endif /* _NUCLEI_TMR_H */ 

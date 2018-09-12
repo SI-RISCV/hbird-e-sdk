@@ -23,8 +23,7 @@
  *****************************************************************************/
 
 #define TRAPVEC_TABLE_CTRL_ADDR _AC(0x00001010,UL)
-#define TMR_CTRL_ADDR           _AC(0x02000000,UL)
-#define PIC_CTRL_ADDR           _AC(0x0C000000,UL)
+
 #define AON_CTRL_ADDR           _AC(0x10000000,UL)
 #define GPIO_CTRL_ADDR          _AC(0x10012000,UL)
 #define UART0_CTRL_ADDR         _AC(0x10013000,UL)
@@ -82,9 +81,8 @@
 #define IOF1_PWM2_MASK          _AC(0x00003C00, UL)
 
 // Interrupt Numbers
-#define PIC_INT_RESERVED    0
-#define PIC_INT_SFT         1
-#define PIC_INT_TMR         2
+#define PIC_NUM_INTERRUPTS 54
+
 
 #define PIC_INT_WDOGCMP     3
 #define PIC_INT_RTCCMP      4
@@ -105,10 +103,8 @@
 #define _REG32(p, i)            (*(volatile uint32_t *) ((p) + (i)))
 #define _REG32P(p, i)           ((volatile uint32_t *) ((p) + (i)))
 #define AON_REG(offset)         _REG32(AON_CTRL_ADDR, offset)
-#define TMR_REG(offset)         _REG32(TMR_CTRL_ADDR, offset)
 #define GPIO_REG(offset)        _REG32(GPIO_CTRL_ADDR, offset)
 #define OTP_REG(offset)         _REG32(OTP_CTRL_ADDR, offset)
-#define PIC_REG(offset)         _REG32(PIC_CTRL_ADDR, offset)
 #define PRCI_REG(offset)        _REG32(PRCI_CTRL_ADDR, offset)
 #define PWM0_REG(offset)        _REG32(PWM0_CTRL_ADDR, offset)
 #define PWM1_REG(offset)        _REG32(PWM1_CTRL_ADDR, offset)
@@ -127,8 +123,6 @@
 
 #define NUM_GPIO 32
 
-#define PIC_NUM_INTERRUPTS 54
-#define PIC_NUM_PRIORITIES 7
 
 #include "board.h"
 
