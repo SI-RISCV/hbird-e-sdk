@@ -32,17 +32,9 @@
   STORE x31, 15*REGBYTES(sp)
 .endm
 
-###############################################
-###############################################
-# Save the mipc and istatus
-#
-.macro SAVE_MIPC_ISTATUS
-  csrr x5, CSR_MIPC  
-  STORE x5,  16*REGBYTES(sp)
-  csrr x5, CSR_ISTATUS  
-  STORE x5,  17*REGBYTES(sp)
-.endm
 
+###############################################
+###############################################
 #restore caller registers
 .macro RESTORE_CONTEXT
   LOAD x1,  0*REGBYTES(sp)
@@ -64,6 +56,37 @@
 
 .endm
 
+###############################################
+###############################################
+# Save the mepc and mstatus
+#
+.macro SAVE_MEPC_MSTATUS
+  csrr x5, CSR_MEPC  
+  STORE x5,  16*REGBYTES(sp)
+  csrr x5, CSR_MSTATUS  
+  STORE x5,  17*REGBYTES(sp)
+.endm
+
+###############################################
+###############################################
+# Restore the mepc and mstatus
+#
+.macro RESTORE_MEPC_MSTATUS
+  LOAD x5,  16*REGBYTES(sp)
+  csrw CSR_MEPC, x5  
+  LOAD x5,  17*REGBYTES(sp)
+  csrw CSR_MSTATUS, x5  
+.endm
+###############################################
+###############################################
+# Save the mipc and istatus
+#
+.macro SAVE_MIPC_ISTATUS
+  csrr x5, CSR_MIPC  
+  STORE x5,  16*REGBYTES(sp)
+  csrr x5, CSR_ISTATUS  
+  STORE x5,  17*REGBYTES(sp)
+.endm
 
 ###############################################
 ###############################################
@@ -76,10 +99,40 @@
   csrw CSR_ISTATUS, x5  
 .endm
 
+###############################################
+###############################################
+# Save the mnpc and nstatus
+#
+.macro SAVE_MNPC_NSTATUS
+  csrr x5, CSR_MNPC  
+  STORE x5,  16*REGBYTES(sp)
+  csrr x5, CSR_NSTATUS  
+  STORE x5,  17*REGBYTES(sp)
+.endm
+
+###############################################
+###############################################
+# Restore the mnpc and nstatus
+#
+.macro RESTORE_MNPC_NSTATUS
+  LOAD x5,  16*REGBYTES(sp)
+  csrw CSR_MNPC, x5  
+  LOAD x5,  17*REGBYTES(sp)
+  csrw CSR_NSTATUS, x5  
+.endm
+
+###############################################
+###############################################
+# Disable Interrupt
+#
 .macro DISABLE_MIE
   csrc CSR_MSTATUS, MSTATUS_MIE  
 .endm
 
+###############################################
+###############################################
+# Enable Interrupt
+#
 .macro ENBLE_MIE
   csrs CSR_MSTATUS, MSTATUS_MIE  
 .endm
@@ -93,17 +146,25 @@
   .global trap_entry
 trap_entry:
   // Allocate the stack space
-  addi sp, sp, -16*REGBYTES
+  addi sp, sp, -18*REGBYTES
+
   // Save the caller saving registers (context)
   SAVE_CONTEXT
+  // Save the MEPC/MStatus reg
+  SAVE_MEPC_MSTATUS
+
      // Set the function argument
   csrr a0, mcause
      // Call the function
   call handle_trap
+
+  // Restore the MEPC/MStatus reg
+  RESTORE_MEPC_MSTATUS
   // Restore the caller saving registers (context)
   RESTORE_CONTEXT
+
   // De-allocate the stack space
-  addi sp, sp, 16*REGBYTES
+  addi sp, sp, 18*REGBYTES
   // Return to regular code
   mret
 
@@ -120,6 +181,7 @@ irq_entry:
 
   // Save the caller saving registers (context)
   SAVE_CONTEXT
+  // Save the MIPC/IStatus reg
   SAVE_MIPC_ISTATUS
 
   // Call the handler function
@@ -131,8 +193,9 @@ call_irq:
   lw x5, 0(x5)// Read the value from PIC EIP reg
   bnez x5, call_irq // If the EIP reg is not zero, means there is a pending register
 
-  // Restore the caller saving registers (context)
+  // Restore the MIPC/IStatus reg
   RESTORE_MIPC_ISTATUS
+  // Restore the caller saving registers (context)
   RESTORE_CONTEXT
 
   // De-allocate the stack space
@@ -149,15 +212,23 @@ call_irq:
   .global nmi_entry
 nmi_entry:
   // Allocate the stack space
-  addi sp, sp, -16*REGBYTES
+  addi sp, sp, -18*REGBYTES
+
   // Save the caller saving registers (context)
   SAVE_CONTEXT
+  // Save the MNPC/NStatus reg
+  SAVE_MNPC_NSTATUS
+
      // Call the function
   call handle_nmi
+
+  // Restore the MNPC/NStatus reg
+  RESTORE_MNPC_NSTATUS
   // Restore the caller saving registers (context)
   RESTORE_CONTEXT
+
   // De-allocate the stack space
-  addi sp, sp, 16*REGBYTES
+  addi sp, sp, 18*REGBYTES
   // Return to regular code
   mret
 
