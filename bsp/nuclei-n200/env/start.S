@@ -9,7 +9,7 @@
 	.type _start,@function
 
 _start:
-	csrrci x0, mstatus, 0x8  //Disable the interrupt globally
+	csrc mstatus, MSTATUS_MIE  //Disable the interrupt globally
 .option push
 .option norelax
 	la gp, __global_pointer$
