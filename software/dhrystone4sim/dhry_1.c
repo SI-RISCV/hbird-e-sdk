@@ -129,7 +129,7 @@ main ()
     //Bob: We dont use scanf
     //Number_Of_Runs = 160000;
     //Bob: for simulation we make it small
-    Number_Of_Runs = 2;
+    Number_Of_Runs = 6;
   }
   printf ("\n");
 

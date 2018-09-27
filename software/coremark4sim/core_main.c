@@ -115,7 +115,7 @@ MAIN_RETURN_TYPE main(int argc, char *argv[]) {
 	results[0].iterations=1;
 #endif
     // Bob: change the interation times to make it faster
-	results[0].iterations=2;// For simulation we make it small
+	results[0].iterations=4;// For simulation we make it small
 
 	results[0].execs=get_seed_32(5);
 	if (results[0].execs==0) { /* if not supplied, execute all algorithms */
