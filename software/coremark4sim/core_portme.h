@@ -1,6 +1,6 @@
 //Bob: put some macro here such that the IDE SDK do not need to specify the macro specially
 //#define FLAGS_STR "-O2 -fno-common -funroll-loops -finline-functions --param max-inline-insns-auto=20 -falign-functions=4 -falign-jumps=4 -falign-loops=4"
-#define FLAGS_STR "-O3 -fno-common -funroll-loops -finline-functions  -falign-functions=4 -falign-jumps=4 -falign-loops=4 -funswitch-loops -fpeel-loops -fgcse-sm -fgcse-las"
+#define FLAGS_STR "-O2 -fno-common -funroll-loops -finline-functions -falign-functions=4 -falign-jumps=4 -falign-loops=4"
 #define PERFORMANCE_RUN 1
 #define ITERATIONS 10000
 
