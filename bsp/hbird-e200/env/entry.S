@@ -58,6 +58,7 @@
   .section      .text.entry	
   .align 2
   .global trap_entry
+.weak trap_entry
 trap_entry:
   TRAP_ENTRY
 
