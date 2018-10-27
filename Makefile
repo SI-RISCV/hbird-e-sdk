@@ -17,10 +17,10 @@ ITCM        := itcm
 IECM        := iecm
 DOWNLOAD    := flash
 
-OCDCFG := ftdi
 FTDI   := ftdi
 HBIRD  := hbird
 OLMX   := olmx
+OCDCFG := ${HBIRD}
 
 E201        := e201
 E203        := e203
