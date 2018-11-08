@@ -13,9 +13,9 @@
 // These are also mapped to RGB LEDs on the FPGA Dev Kit.
 
 
-#define RED_LED_GPIO_OFFSET   19
-#define GREEN_LED_GPIO_OFFSET 21
-#define BLUE_LED_GPIO_OFFSET  22
+#define RED_LED_GPIO_OFFSET   22
+#define GREEN_LED_GPIO_OFFSET 19
+#define BLUE_LED_GPIO_OFFSET  21
 
 
 
