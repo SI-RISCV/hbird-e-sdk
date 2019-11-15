@@ -1,5 +1,5 @@
 TARGET =ethernet
-CFLAGS += -Os -msave-restore  -fno-unroll-loops -flto
+CFLAGS += -O2
 
 BSP_BASE = ../../bsp
 
